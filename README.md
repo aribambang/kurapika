@@ -5,7 +5,7 @@ Extraction script written in [Go](http://golang.org)
 
 *Contributors:*
 
-* @aribambang
+* [@aribambang](https://github.com/aribambang)
 
 ## Prerequisites
 Make sure you have [Go](http://golang.org) installed on your machine. If you don't have one, check [here](https://golang.org/dl/)
