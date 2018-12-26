@@ -33,7 +33,7 @@ func MysqlDB() *sql.DB {
 	return db
 }
 
-func mgoDB() *mgo.Session {
+func MgoDB() *mgo.Session {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Failed to get env value")
