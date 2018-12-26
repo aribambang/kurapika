@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 
+	"gopkg.in/mgo.v2"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 )
@@ -29,4 +31,24 @@ func MysqlDB() *sql.DB {
 	}
 
 	return db
+}
+
+func mgoDB() *mgo.Session {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Failed to get env value")
+	}
+	connectionString := fmt.Sprintf("mongodb://%s:27017",
+		os.Getenv("MONGO_DB_HOST"),
+	)
+	dialInfo, err := mgo.ParseURL(connectionString)
+	dialInfo.Direct = true
+	dialInfo.FailFast = true
+
+	session, err := mgo.DialWithInfo(dialInfo)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return session
 }
