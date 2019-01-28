@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 	"time"
 
 	"kurapika/handlers"
+
 	"github.com/robfig/cron"
 )
 
@@ -25,5 +28,5 @@ func extract() {
 	fmt.Println("Kurapika starting")
 	start := time.Now().UTC()
 	handlers.User()
-	fmt.("Done processing in", time.Since(start))
+	fmt.Println("Done processing in", time.Since(start))
 }
