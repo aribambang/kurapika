@@ -18,5 +18,5 @@ func User() {
 			panic(err)
 		}
 	}
-	fmt.Printf("Done! %d data processed!\n")
+	fmt.Printf("Done! %d data processed!\n", len(users))
 }
