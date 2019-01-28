@@ -2,6 +2,7 @@ package utils
 
 import (
 	"kurapika/config"
+	"log"
 )
 
 type date struct {
@@ -30,6 +31,17 @@ func ExecQuery(q string, p []interface{}) error {
 
 	return nil
 
+}
+
+func FetchID(q, ID string) (resID int, err error) {
+	db := config.MysqlDB()
+
+	if err := db.QueryRow(q, ID).Scan(&resID); err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	return resID, nil
 }
 
 func DateDim(dc date) (dateID int, err error) {
