@@ -14,6 +14,7 @@ type User struct {
 	ID        bson.ObjectId `bson:"_id,omitempty" json:"_id"`
 	CreatedAt time.Time     `bson:"createdAt,omitempty" json:"createdAt"`
 	UpdatedAt time.Time     `bson:"updatedAt,omitempty" json:"updatedAt"`
+	Source    string        `bson:"source" json:"source"`
 }
 
 func MgoUser() ([]User, error) {
