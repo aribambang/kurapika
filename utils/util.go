@@ -1,8 +1,11 @@
 package utils
 
 import (
+	"fmt"
 	"kurapika/config"
 	"log"
+	"strconv"
+	"time"
 )
 
 type date struct {
@@ -73,4 +76,19 @@ func DateDim(dc date) (dateID int, err error) {
 	defer db.Close()
 
 	return dateID, nil
+}
+
+func Extract(createdAt time.Time) (dc date, err error) {
+	_, actionWeek := createdAt.ISOWeek()
+	actionYear := createdAt.Year()
+	actionMonth := int(createdAt.Month())
+	_, _, actionDate := createdAt.Date()
+
+	return date{
+		createdAt.YearDay(),
+		actionWeek,
+		actionMonth,
+		strconv.Itoa(actionYear),
+		fmt.Sprintf("%d-%d-%d", actionYear, actionMonth, actionDate),
+	}, nil
 }
