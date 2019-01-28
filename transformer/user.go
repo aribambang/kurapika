@@ -11,21 +11,13 @@ func SQLUser(u extractor.User) error {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Print("Processing UserID #%s\n", u.ID.Hex())
+	fmt.Printf("Processing UserID #%s\n", u.ID.Hex())
 
 	if t != 0 {
 		return nil
 	}
 	fmt.Printf("New data found! Insertin UserID #%s...\n", u.ID.Hex())
-	extracted, err := utils.Extract(u.CreatedAt)
-	if err != nil {
-		panic(err)
-	}
 
-	dateID, err := utils.DateDim(extracted)
-	if err != nil {
-		panic(err)
-	}
 	if t == 0 {
 		t, err = baseUser(u.ID.Hex(), u.Source)
 		if err != nil {
