@@ -7,7 +7,7 @@ import (
 )
 
 func SQLUser(u extractor.User) error {
-	t, err := utils.FetchID("(SELECT IFNULL((SELECT id from dim_user WHERE `source_id`=? LIMIT 1), 0))", u.ID.Hex())
+	t, err := utils.FetchID("(SELECT IFNULL((SELECT id FROM dim_user WHERE `source_id`=? LIMIT 1), 0))", u.ID.Hex())
 	if err != nil {
 		panic(err)
 	}
@@ -34,7 +34,7 @@ func baseUser(ID, source string) (int, error) {
 		source
 	) VALUES (
 		?,
-		?,
+		?
 	);`
 	utils.ExecQuery(q, p)
 

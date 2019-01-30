@@ -1,6 +1,7 @@
 package extractor
 
 import (
+	"fmt"
 	"kurapika/config"
 	"log"
 	"os"
@@ -29,6 +30,7 @@ func MgoUser() ([]User, error) {
 	if err := c.Find(bson.M{}).All(&results); err != nil {
 		return nil, err
 	}
+	fmt.Println(results)
 	defer session.Close()
 	return results, nil
 }

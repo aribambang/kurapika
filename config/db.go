@@ -1,9 +1,11 @@
 package config
 
 import (
+	"crypto/tls"
 	"database/sql"
 	"fmt"
 	"log"
+	"net"
 	"os"
 
 	"gopkg.in/mgo.v2"
@@ -38,10 +40,13 @@ func MgoDB() *mgo.Session {
 	if err != nil {
 		log.Fatal("Failed to get env value")
 	}
-	connectionString := fmt.Sprintf("mongodb://%s:27017",
-		os.Getenv("MONGO_DB_HOST"),
-	)
+	connectionString := os.Getenv("MONGO_DB_HOST")
 	dialInfo, err := mgo.ParseURL(connectionString)
+	tlsConfig := &tls.Config{}
+	dialInfo.DialServer = func(addr *mgo.ServerAddr) (net.Conn, error) {
+		conn, err := tls.Dial("tcp", addr.String(), tlsConfig)
+		return conn, err
+	}
 	dialInfo.Direct = true
 	dialInfo.FailFast = true
 
